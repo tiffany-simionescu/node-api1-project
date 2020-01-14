@@ -58,6 +58,23 @@ api.get("/api/users/:id", (req, res) => {
 });
 
 // DELETE - /api/users/:id - deletes user
+api.delete("/api/users/:id", (req, res) => {
+  const userID = req.params.id;
+
+  db.remove(userID)
+    .then(userDeleted => {
+      res.status(200).json(userDeleted)
+      if(userDeleted) {
+        res.status(404).end()
+      } else {
+        res.status(404).json({ errorMessage: "The user with the specified ID does not exist." })
+      }
+    })
+    .catch(err => {
+      console.error(err);
+      res.status(500).json({ errorMessage: "The user could not be removed." })
+})
+});
 
 // PUT - /api/users/:id - edits user
 
