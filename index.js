@@ -2,8 +2,14 @@
 const express = require('express');
 const server = express();
 
+// STRETCH - Define Cors
+const cors = require('cors');
+
 // Middleware
 server.use(express.json());
+
+//STRETCH - Cors Middleware
+server.use(cors());
 
 // Import DB
 let db = require('./data/db');
