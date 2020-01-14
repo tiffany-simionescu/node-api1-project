@@ -1,18 +1,17 @@
 // implement your API here
 const express = require('express');
-const api = express();
+const server = express();
 
 // Middleware
-api.use(express.json());
+server.use(express.json());
 
 // Import DB
 let db = require('./data/db');
-let users = require('./data/seeds/users');
 
 // === Required Endpoints === //
 
 // POST - /api/users - adds user
-api.post("/api/users", (req, res) => {
+server.post("/api/users", (req, res) => {
     const { name, bio } = req.body;
 
     if (!name || !bio) {
@@ -29,7 +28,7 @@ api.post("/api/users", (req, res) => {
 });
 
 // GET - /api/users - all users
-api.get("/api/users", (req, res) => {
+server.get("/api/users", (req, res) => {
   db.find()
     .then(users => {
       res.status(200).json(users)
@@ -44,7 +43,7 @@ api.get("/api/users", (req, res) => {
 // ADD THE FOLLOWING:
 //  res.status(500).json({ errorMessage: "The user information could not be retrieved." })
 
-api.get("/api/users/:id", (req, res) => {
+server.get("/api/users/:id", (req, res) => {
   const userID = req.params.id;
 
   db.findById(userID)
@@ -58,7 +57,7 @@ api.get("/api/users/:id", (req, res) => {
 });
 
 // DELETE - /api/users/:id - deletes user
-api.delete("/api/users/:id", (req, res) => {
+server.delete("/api/users/:id", (req, res) => {
   const userID = req.params.id;
 
   db.remove(userID)
@@ -77,7 +76,7 @@ api.delete("/api/users/:id", (req, res) => {
 });
 
 // PUT - /api/users/:id - edits user
-api.put("/api/users/:id", (req, res) => {
+server.put("/api/users/:id", (req, res) => {
   const userID = req.params.id;
   const { name, bio } = req.body;
 
@@ -102,6 +101,6 @@ api.put("/api/users/:id", (req, res) => {
 const port = 8000;
 const host = "127.0.0.1";
 
-api.listen(port, host, () => {
+server.listen(port, host, () => {
   console.log(`API running at http://${host}:${port}`);
 });
