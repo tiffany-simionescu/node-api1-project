@@ -22,9 +22,10 @@ class AddUser extends React.Component {
 
   render() {
     return (
-      <form onSubmit={this.addUser}>
+      <form onSubmit={this.addUser} className="form">
           <h2 className="new-user-title">Add a New User</h2>
           <input 
+            className="add-input"
             type="text"
             name="name"
             placeholder="Name"
@@ -32,13 +33,14 @@ class AddUser extends React.Component {
             onChange={this.handleChanges}
           />
           <input 
+            className="add-input"
             type="text"
             name="bio"
             placeholder="Bio"
             value={this.state.bio}
             onChange={this.handleChanges}
           />
-          <button>Add User</button>
+          <button className="button">Add User</button>
       </form>
     )
   }

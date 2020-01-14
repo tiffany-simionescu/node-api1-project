@@ -48,6 +48,16 @@ const UserCard = props => {
     })
   }
 
+  const deleteUser = id => {
+    axios.delete(`http://localhost:8000/api/users/${id}`)
+      .then(res => {
+        setUser(res.data);
+      })
+      .catch(err => {
+        console.error(err);
+      })
+  };
+
   return (
     <div className="card">
       {editMode ? ( 
@@ -61,7 +71,10 @@ const UserCard = props => {
         />
         </>
         ) : (
-          <h3>Name: {user.name}</h3>
+          <h3>Name: 
+            <br />
+            <span className="font">{user.name}</span>
+          </h3>
         )
       }
       {editMode ? ( 
@@ -75,7 +88,10 @@ const UserCard = props => {
         />
         </>
         ) : (
-          <h3>Bio: {user.bio}</h3>
+          <h3>Bio: 
+            <br />
+            <span className="font">{user.bio}</span>
+          </h3>
         )
       }
             {editMode ? (
@@ -89,6 +105,9 @@ const UserCard = props => {
                 <button onClick={triggerEditConfirmation} className="button">
                   Edit User
                 </button>
+                <button onClick={() => deleteUser(user.id)} className="button">
+                Delete User
+              </button>
               </div>
             )}
 

@@ -17,33 +17,22 @@ const UserList = props => {
       })
   });
 
-  const deleteUser = id => {
-    axios.delete(`http://localhost:8000/api/users/${id}`)
-      .then(res => {
-        setUsers(res.data);
-      })
-      .catch(err => {
-        console.error(err);
-      })
-  };
-
   return (
     <div>
       <h1>User List</h1>
       <AddUser />
+      <div className="user-list">
       {users.length > 0 ? 
         (users.map(user => {
           return (
             <div>
               <UserCard {...user} key={user.id} />
-              <button onClick={() => deleteUser(user.id)} className="button">
-                Delete User
-              </button>
             </div>
           )
         })) : (
           null
         )}
+      </div>
     </div>
   )
 }
