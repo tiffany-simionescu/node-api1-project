@@ -40,9 +40,6 @@ server.get("/api/users", (req, res) => {
 });
 
 // GET - /api/users/:id - specific user
-// ADD THE FOLLOWING:
-//  res.status(500).json({ errorMessage: "The user information could not be retrieved." })
-
 server.get("/api/users/:id", (req, res) => {
   const userID = req.params.id;
 
@@ -52,7 +49,11 @@ server.get("/api/users/:id", (req, res) => {
     })
     .catch(err => {
       console.error(err);
-      res.status(404).json({ errorMessage: "The user with the specified ID does not exist." })
+      if(!userID) {
+        res.status(404).json({ errorMessage: "The user with the specified ID does not exist." })
+      } else {
+        res.status(500).json({ errorMessage: "The user information could not be retrieved." })
+      }
     })
 });
 
