@@ -12,28 +12,6 @@ let users = require('./data/seeds/users');
 // === Required Endpoints === //
 
 // POST - /api/users - adds user
-// api.post("/api/users", (req, res) => {
-//   if (!req.body.name || !req.body.bio) {
-//     return res.status(400).json({ errorMessage: "Please provide name and bio for the user." });
-//   } 
-
-//   const newUser = {
-//     id: Date.now(),
-//     name: req.body.name,
-//     bio: req.body.bio,
-//     created_at: Date.now(),
-//     updated_at: Date.now()
-//   }
-
-//   db.insert(newUser);
-//   res.status(201).json(newUser);
-
-//   // If there's an error while saving the user:
-//   if(!users.insert(newUser)) {
-//     return res.status(500).json({ errorMessage: "There was an error while saving the user to the database" });
-//   }
-// });
-
 api.post("/api/users", (req, res) => {
     const { name, bio } = req.body;
 
@@ -63,6 +41,21 @@ api.get("/api/users", (req, res) => {
 });
 
 // GET - /api/users/:id - specific user
+// ADD THE FOLLOWING:
+//  res.status(500).json({ errorMessage: "The user information could not be retrieved." })
+
+api.get("/api/users/:id", (req, res) => {
+  const userID = req.params.id;
+
+  db.findById(userID)
+    .then(user => {
+      res.status(200).json(user);
+    })
+    .catch(err => {
+      console.error(err);
+      res.status(404).json({ errorMessage: "The user with the specified ID does not exist." })
+    })
+});
 
 // DELETE - /api/users/:id - deletes user
 
