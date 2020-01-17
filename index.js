@@ -14,6 +14,16 @@ server.use(cors());
 // Import DB
 let db = require('./data/db');
 
+// === Addition Enpoint for Heroku === //
+
+server.get("/", (req, res) => {
+  res.json({
+    message: "Welcome to my API",
+    cohort: process.env.LAMBDA_SCHOOL,
+    secret: process.env.SUPER_SECRET_API_KEY
+  })
+})  
+
 // === Required Endpoints === //
 
 // POST - /api/users - adds user
@@ -105,8 +115,11 @@ server.put("/api/users/:id", (req, res) => {
     })
 });
 
-const port = 8000;
-const host = "127.0.0.1";
+// const port = 8000;
+// const host = "127.0.0.1";
+
+const host = process.env.HOST || "0.0.0.0";
+const port = process.env.PORT || 8080;
 
 server.listen(port, host, () => {
   console.log(`API running at http://${host}:${port}`);
