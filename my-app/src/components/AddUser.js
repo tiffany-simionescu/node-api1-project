@@ -1,5 +1,5 @@
 import React from 'react';
-import axios from 'axios';
+import { axiosWithAuth } from '../utils/axiosWithAuth';
 
 class AddUser extends React.Component {
   state = {
@@ -9,7 +9,8 @@ class AddUser extends React.Component {
   }
 
   addUser = () => {
-    axios.post('https://node-api1-project-tiffany.herokuapp.com/api/users', this.state)
+    axiosWithAuth()
+      .post('/api/users', this.state)
       .then(res => console.log(res))
       .catch(err => console.log('post error', err.response))
   }

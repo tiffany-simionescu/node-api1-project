@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import axios from 'axios';
+import { axiosWithAuth } from '../utils/axiosWithAuth';
 
 const UserCard = props => {
 
@@ -11,7 +11,8 @@ const UserCard = props => {
   const [editMode, setEditMode] = useState(false);
 
   useEffect(() => {
-    axios.get(`https://node-api1-project-tiffany.herokuapp.com/api/users/${props.id}`)
+    axiosWithAuth()
+      .get(`/api/users/${props.id}`)
       .then(res => console.log(res.data))
       .catch(err => console.error(err))
   })
@@ -25,15 +26,18 @@ const UserCard = props => {
 
   const handleEdit = (e, userID, user) => {
     e.preventDefault();
-    axios.put(`https://node-api1-project-tiffany.herokuapp.com/api/users/${userID}`, user)
+    axiosWithAuth()
+      .put(`/api/users/${userID}`, user)
       .then(res => {
-        axios.get(`https://node-api1-project-tiffany.herokuapp.com/api/users/${userID}`)
+        axiosWithAuth()
+          .get(`/api/users/${userID}`)
           .then(res => console.log(res.data))
           .catch(err => console.error(err))
       })
       .catch(err => console.error(err))
     setEditMode(false);
-    axios.get(`https://node-api1-project-tiffany.herokuapp.com/api/users/${userID}`)
+    axiosWithAuth()
+      .get(`/api/users/${userID}`)
       .then(res => console.log(res.data))
       .catch(err => console.error(err))
   };
@@ -49,7 +53,8 @@ const UserCard = props => {
   }
 
   const deleteUser = id => {
-    axios.delete(`https://node-api1-project-tiffany.herokuapp.com/api/users/${id}`)
+    axiosWithAuth()
+      .delete(`/api/users/${id}`)
       .then(res => {
         setUser(res.data);
       })

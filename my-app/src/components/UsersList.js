@@ -1,14 +1,15 @@
 import React, { useState, useEffect } from 'react';
 import AddUser from './AddUser';
 import UserCard from './UserCard';
-import axios from 'axios';
+import { axiosWithAuth } from '../utils/axiosWithAuth';
 
-const UserList = props => {
+const UserList = () => {
 
   const [users, setUsers] = useState([]);
 
   useEffect(() => {
-    axios.get('https://node-api1-project-tiffany.herokuapp.com/api/users')
+    axiosWithAuth()
+      .get('/api/users')
       .then(res => {
         setUsers(res.data);
       })
