@@ -81,9 +81,7 @@ server.delete("/api/users/:id", (req, res) => {
   db.remove(userID)
     .then(userDeleted => {
       res.status(200).json(userDeleted)
-      if(userDeleted) {
-        res.status(404).end()
-      } else {
+      if(!userDeleted) {
         res.status(404).json({ errorMessage: "The user with the specified ID does not exist." })
       }
     })
