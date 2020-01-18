@@ -9,7 +9,7 @@ class AddUser extends React.Component {
   }
 
   addUser = () => {
-    axios.post('http://localhost:8000/api/users', this.state)
+    axios.post('https://node-api1-project-tiffany.herokuapp.com/api/users', this.state)
       .then(res => console.log(res))
       .catch(err => console.log('post error', err.response))
   }

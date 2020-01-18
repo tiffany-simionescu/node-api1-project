@@ -11,7 +11,7 @@ const UserCard = props => {
   const [editMode, setEditMode] = useState(false);
 
   useEffect(() => {
-    axios.get(`http://localhost:8000/api/users/${props.id}`)
+    axios.get(`https://node-api1-project-tiffany.herokuapp.com/api/users/${props.id}`)
       .then(res => console.log(res.data))
       .catch(err => console.error(err))
   })
@@ -25,15 +25,15 @@ const UserCard = props => {
 
   const handleEdit = (e, userID, user) => {
     e.preventDefault();
-    axios.put(`http://localhost:8000/api/users/${userID}`, user)
+    axios.put(`https://node-api1-project-tiffany.herokuapp.com/api/users/${userID}`, user)
       .then(res => {
-        axios.get(`http://localhost:8000/api/users/${userID}`)
+        axios.get(`https://node-api1-project-tiffany.herokuapp.com/api/users/${userID}`)
           .then(res => console.log(res.data))
           .catch(err => console.error(err))
       })
       .catch(err => console.error(err))
     setEditMode(false);
-    axios.get(`http://localhost:8000/api/users/${userID}`)
+    axios.get(`https://node-api1-project-tiffany.herokuapp.com/api/users/${userID}`)
       .then(res => console.log(res.data))
       .catch(err => console.error(err))
   };
@@ -49,7 +49,7 @@ const UserCard = props => {
   }
 
   const deleteUser = id => {
-    axios.delete(`http://localhost:8000/api/users/${id}`)
+    axios.delete(`https://node-api1-project-tiffany.herokuapp.com/api/users/${id}`)
       .then(res => {
         setUser(res.data);
       })

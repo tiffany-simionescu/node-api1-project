@@ -8,7 +8,7 @@ const UserList = props => {
   const [users, setUsers] = useState([]);
 
   useEffect(() => {
-    axios.get('http://localhost:8000/api/users')
+    axios.get('https://node-api1-project-tiffany.herokuapp.com/api/users')
       .then(res => {
         setUsers(res.data);
       })
